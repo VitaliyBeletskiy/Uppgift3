@@ -7,15 +7,34 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Fruit: Identifiable {
+    let id: Int
+    let name: String
+}
+struct ContentView : View {
+    var fruits = [
+        Fruit(id: 0, name: "Apelsin"),
+        Fruit(id: 1, name: "Banan"),
+        Fruit(id: 2, name: "Citron"),
+    ]
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            List(fruits) { fruit in
+                HStack {
+                    NavigationLink(destination: FruitView(data: fruit.name)) {
+                        Text(fruit.name)
+                    }
+                }
+            }
         }
-        .padding()
+    }
+}
+
+struct FruitView: View {
+    var data: String
+    
+    var body: some View {
+        Text(data)
     }
 }
 
